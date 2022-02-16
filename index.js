@@ -16,12 +16,14 @@ import { sendNews } from "./send-news.js";
         if(process.env.REQ_SECRET !== req.query.secret) {
             res.sendStatus(403);
         } else {
-            const news = await newsApi.request("ukraine") || {};
-            const russia = await newsApi.request("russia") || {};
-            const all = [...(news.articles || []), ...(russia.articles || [])];
-            res.send(await sendNews(all));
-
-           
+            try {
+                const news = await newsApi.request("ukraine") || {};
+                const russia = await newsApi.request("russia") || {};
+                const all = [...(news.articles || []), ...(russia.articles || [])];
+                res.send(await sendNews(all));
+            } catch(e) {
+                res.sendStatus(500);
+            }
         }
     });
 

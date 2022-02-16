@@ -1,3 +1,4 @@
+import { newsApi } from "./newsapi.js";
 import { addToDrive, arweave } from "./utils.js"
 import { getWallet } from "./wallet.js";
 
@@ -17,6 +18,13 @@ export const sendNews = async (news) => {
         let processedArticles = getUniqueListBy(news, "url");
         for(let article of processedArticles) {
             try {
+
+            let articleUrl = article.url;
+            let exists = await newsApi.exists(articleUrl);
+            if(exists.data?.transactions?.edges?.length > 0) {
+                continue;
+            }
+
             const data = {
                 title: article.title,
                 content: article.content,
