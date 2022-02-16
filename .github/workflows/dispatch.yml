@@ -20,4 +20,4 @@ jobs:
           NEWS_KEY: ${{ secrets.NEWS_KEY }}
           ARDRIVE_DRIVE: ${{ secrets.ARDRIVE_DRIVE }}
           ARDRIVE_FOLDER: ${{ secrets.ARDRIVE_FOLDER }}
-          
+          WALLET: ${{ secrets.WALLET }}
