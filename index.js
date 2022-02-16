@@ -10,11 +10,12 @@ import { sendNews } from "./send-news.js";
 (async () => {
     await config();
     await generateWallet();
-    
+
     console.log(`Public key: ${await arweave.wallets.jwkToAddress(getWallet())}`);
     
     const news = await newsApi.request("ukraine") || {};
     const russia = await newsApi.request("russia") || {};
     const all = [...(news.articles || []), ...(russia.articles || [])];
     console.log(await sendNews(all));
+    process.exit(0);
 })();
