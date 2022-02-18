@@ -32,17 +32,17 @@ const createTx = async (data, tags) => {
     await arweave.transactions.post(transaction);
 
     const contentType = tags["Content-Type"];
-    await addToDrive({
-        fileinfo: {
-          filename: `${data.title}-AndresPirelaUkraineRussia.${contentType === "application/pdf" ? "pdf" : "json"}`,
-          contentType,
-          timestamp: Math.round(new Date(tags["publishedAt"]).getTime() / 1000).toString(),
-          size: data?.length || 0,
-          dataTx: transaction.id
-        },
-        driveID: ARDRIVE_DRIVE,
-        folderID: ARDRIVE_FOLDER
-      });
+    // await addToDrive({
+    //     fileinfo: {
+    //       filename: `${data.title}-AndresPirelaUkraineRussia.${contentType === "application/pdf" ? "pdf" : "json"}`,
+    //       contentType,
+    //       timestamp: Math.round(new Date(tags["publishedAt"]).getTime() / 1000).toString(),
+    //       size: data?.length || 0,
+    //       dataTx: transaction.id
+    //     },
+    //     driveID: ARDRIVE_DRIVE,
+    //     folderID: ARDRIVE_FOLDER
+    //   });
 
     return transaction;
 
