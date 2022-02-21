@@ -7,15 +7,25 @@ import { arweave } from "./utils.js";
 import { getWallet } from "./wallet.js"
 import { sendNews } from "./send-news.js";
 
+export const getNews = async (date) => {
+    const keyWords = process.env.NEWS_KEYWORDS.split(",");
+
+    const news = [];
+    for(const keyWord of keyWords) {
+        const data = await newsApi.request(keyWord, date) || {};
+        news.push(...(data.articles || []));
+    }
+    return news;
+}
+
 (async () => {
     await config();
     await generateWallet();
 
     console.log(`Public key: ${await arweave.wallets.jwkToAddress(getWallet())}`);
-    
-    const news = await newsApi.request("ukraine") || {};
-    const russia = await newsApi.request("russia") || {};
-    const all = [...(news.articles || []), ...(russia.articles || [])];
-    console.log(await sendNews(all));
+
+    const news = await getNews();
+
+    console.log(await sendNews(news));
     process.exit(0);
 })();

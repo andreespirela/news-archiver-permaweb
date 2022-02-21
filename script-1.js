@@ -6,6 +6,7 @@ import { config } from "dotenv";
 import { arweave } from "./utils.js";
 import { getWallet } from "./wallet.js"
 import { sendNews } from "./send-news.js";
+import { getNews } from "./index.js";
 
 const getDaysArray = function(start, end) {
     for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
@@ -27,12 +28,7 @@ const getDaysArray = function(start, end) {
     for(let i = 0; i < dates.length; i++) {
         const date = dates[i];
         try {
-            console.log("Fetching news about Ukraine and Russia... for Date: ", date);
-            const news = await newsApi.request("ukraine", date) || {};
-            console.log(news);
-            const russia = await newsApi.request("russia", date) || {};
-            const all = [...(news.articles || []), ...(russia.articles || [])];
-            newsCollection.push(...all);
+            newsCollection.push(...((await getNews(date)) || []));
         } catch(e) {
             console.log(e);
         }
