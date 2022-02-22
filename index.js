@@ -8,7 +8,7 @@ import { getWallet } from "./wallet.js"
 import { sendNews } from "./send-news.js";
 
 export const getNews = async (date) => {
-    const keyWords = process.env.NEWS_KEYWORDS.split(",");
+    const keyWords = (process.env.NEWS_KEYWORDS || ['russia', 'ukraine']).split(",");
 
     const news = [];
     for(const keyWord of keyWords) {
