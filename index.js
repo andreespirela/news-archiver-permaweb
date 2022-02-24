@@ -25,6 +25,7 @@ export const run = async (date, keywords, initiative) => {
     console.log(`Public key: ${await arweave.wallets.jwkToAddress(getWallet())}`);
 
     const news = await getNews(date, keywords);
+    console.log(news.length);
 
     console.log(await sendNews(news, initiative));
     process.exit(0);
