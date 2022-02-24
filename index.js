@@ -7,9 +7,9 @@ import { arweave } from "./utils.js";
 import { getWallet } from "./wallet.js"
 import { sendNews } from "./send-news.js";
 
-export const getNews = async (date, keywords) => {
-    const keyWords = (keywords || (process.env.NEWS_KEYWORDS || "russia,ukraine")).split(",");
-
+export const getNews = async (date, keywordManual) => {
+    const keyWords = (keywordManual || (process.env.NEWS_KEYWORDS || "russia,ukraine")).split(",");
+console.log(keyWords);
     const news = [];
     for(const keyWord of keyWords) {
         const data = await newsApi.request(keyWord, date) || {};
@@ -30,4 +30,7 @@ export const run = async (date, keywords, initiative) => {
     process.exit(0);
 };
 
-run();
+if(process.env.DEFAULT) {
+    run();
+
+}

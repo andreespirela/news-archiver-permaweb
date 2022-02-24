@@ -17,7 +17,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
-      - run: node index.js
+      - run: node russia-ukraine.js 
         env:
           NEWS_KEY: ${{ secrets.NEWS_KEY }}
           ARDRIVE_DRIVE: ${{ secrets.ARDRIVE_DRIVE }}
