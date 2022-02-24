@@ -48,7 +48,7 @@ const createTx = async (data, tags) => {
 
 }
 
-export const sendNews = async (news) => {
+export const sendNews = async (news, initiative) => {
 
     if(!news) return [];
 
@@ -110,14 +110,14 @@ export const sendNews = async (news) => {
                     "App-Version": "0.1.0",
                     "App-Name": "ArDrive-Web",
                     "Content-Type": "application/pdf",
-                    "Initiative": "AndresPirelaUkraineRussia",
+                    "Initiative": initiative || "AndresPirelaUkraineRussia",
                     "Original-Url": articleUrl,
                     "publishedAt": article.publishedAt || new Date().toString(),
                 });
             }
 
             const transaction = await createTx(txData, {
-                "Initiative": "AndresPirelaUkraineRussia",
+                "Initiative": initiative || "AndresPirelaUkraineRussia",
                 "Original-Url": article.url || "",
                 "author": article.author || "Unknown",
                 "publishedAt": article.publishedAt || new Date().toString(),

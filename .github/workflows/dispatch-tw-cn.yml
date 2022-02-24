@@ -1,0 +1,24 @@
+name: Trigger script cron JOB
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: '*/30 * * * *'
+jobs:
+  build:
+    name: Dispatch to permaweb
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install
+      - run: node taiwan-china.js
+        env:
+          ARDRIVE_DRIVE: ${{ secrets.ARDRIVE_DRIVE }}
+          ARDRIVE_FOLDER: ${{ secrets.ARDRIVE_FOLDER }}
+          WALLET: ${{ secrets.WALLET }}
