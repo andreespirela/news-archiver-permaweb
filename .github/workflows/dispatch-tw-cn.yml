@@ -1,4 +1,4 @@
-name: Trigger script cron JOB (Taiwan China)
+name: Trigger script cron JOB (Taiwan)
 
 on:
   push:
@@ -19,6 +19,7 @@ jobs:
       - run: npm install
       - run: node taiwan-china.js
         env:
+          NEWS_KEY: ${{ secrets.NEWS_KEY }}
           ARDRIVE_DRIVE: ${{ secrets.ARDRIVE_DRIVE }}
           ARDRIVE_FOLDER: ${{ secrets.ARDRIVE_FOLDER }}
           WALLET: ${{ secrets.WALLET }}
